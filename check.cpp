@@ -22,20 +22,20 @@ int app::check() {
 
     // 如果存在配置文件
     if (status) {
-        app::log(0, "文件检查完成");
+        app::log(0, "配置文件检查完成");
     }
     else {
-        app::log(2,"文件不存在!");
+        app::log(2,"配置文件不存在!");
         // 写入文件
-        std::ofstream file(dir_path / "config.json");
+        std::ofstream file(this->config_path);
         if (file.is_open()) {
-            std::cout << "[正常] config.json 创建成功" << std::endl;
-            file << this->config.dump(4); // 格式化输出，缩进4空格
-            std::cout << "[正常] config.json 写入成功" << std::endl;
-            std::cout << "[正常] config.json 路径" << this->config_path << std::endl;
+            log(0,"config.json 创建成功");
+            file << this->default_config.dump(4); // 格式化输出，缩进4空格
+            log(0,"config.json 写入成功" );
+            log(0,"config.json 路径" + std::string(this->config_path ));
         }
         else {
-            std::cerr << "[错误] 无法创建文件" << std::endl;
+            log(3,"无法创建文件");
             return 1;
         }
 
