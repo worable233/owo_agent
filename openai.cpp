@@ -3,6 +3,6 @@
 #include "app.h"
 
 // 成员函数：openai
-int app.openai() {
+int app::openai() {
 	return 0;
 }

@@ -5,11 +5,11 @@
 // 成员函数：加载配置文件
 bool app::loadConfig() {
     // 判断配置文件是否存在
-    if (std::filesystem::exists(app.path / "config" / "config.json")) {
-        std::cout << "[正常] 文件存在" << std::endl;
+    if (std::filesystem::exists(this->path / "config" / "config.json")) {
+        log(0,"文件存在")
     }
     else {
-        std::cout << "[警告] 文件不存在!" << std::endl;
+        log(1,"文件不存在!");
         return false;
     }
 

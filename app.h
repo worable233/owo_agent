@@ -27,7 +27,7 @@ public:
     {"model", {
         {"name", "Deepseek"},
         {"base_url", "https://api.deepseek.com"},
-        {"api_key", 114514}
+        {"api_key", "YOUR_API_KEY_HERE"}
     }},
     {"settings", {
         {"timeout", 30},
@@ -40,12 +40,16 @@ public:
     // 读取的 config
     json config;
 
+    // 构造函数，防止初始化前日志的debug读不到报错
+    app() : config(default_config) {}
+
     // 静态函数
-    static int run(int argc, char* argv[]); // 主程序
-    static int check(std::string dir_path); // 初始化
-    static int openai();                    // openai接口相关
+    int run(int argc, char* argv[]);                      // 主程序
     // 函数
-    bool loadConfig();            // 读取配置文件
-    bool saveConfig();            // 保存配置文件
+    bool loadConfig();                                        // 读取配置文件
+    bool saveConfig();                                        // 保存配置文件
+    int log(int title, const std::string& text);      // 日志
+    int check();                                                    // 初始化
+    int openai();                                                  // openai接口相关
 
 };
