@@ -16,7 +16,8 @@ class app {
 public:
     // 每次发布更新需要修改这个版本号
     std::string version = "1.0.0";
-
+    // 系统类型
+    std::string os = "";
     // 程序所在路径
     std::filesystem::path path = std::filesystem::current_path();
     // config 的路径
@@ -43,7 +44,8 @@ public:
             {"timeout", 30},
             {"max_tokens", 100},
             {"retry", 3},
-            {"default_model", "deepseek-chat"},
+            {"use_model", "deepseek-chat"},
+            {"default_model", "model_1"},
             {"stream", true}
         }}
     };

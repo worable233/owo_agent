@@ -8,6 +8,21 @@
 // 成员函数：初始化
 int app::check() {
     
+    // 初始化系统变量
+    #ifdef _WIN32
+        // Windows 系统 (包括 MinGW, MSVC)
+        this->os = "windows";
+    #elif defined(__APPLE__) || defined(__MACH__)
+        // macOS 系统
+        this->os = "apple";
+    #elif defined(__linux__)
+        // Linux 系统
+        this->os = "linux";
+    #else
+        // 其他类 Unix 系统 (FreeBSD, OpenBSD 等) 通常也支持 clear
+        this->os = "Unix";
+    #endif
+
     // 配置文件所在路径
     std::filesystem::path dir_path = this->path / "config";
 

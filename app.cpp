@@ -6,27 +6,31 @@
 #include "single_include/nlohmann/json.hpp"
 #include "include/curl/curl.h"
 #include "app.h"
-                                            
+
 // 简化命名空间
 using json = nlohmann::json;
 
 // 入口点
 int app::run(int argc, char* argv[]) {
 	std::string username = this->config["username"];
+
 	// 判断是不是第一次使用
 	if (username == "")
 	{
 		// 引导使用的临时变量
 		bool a = false;
 		std::string b = "";
+
 		// 进入欢迎引导
 		std::cout << std::string(5, '\n') << std::endl;
 		std::cout << "Welcome To owoAgent" << std::endl;
 		std::cout << "欢迎使用" << std::endl;
 		std::cout << std::string(2, '\n') << std::endl;
 		std::cout << "已自动为您创建了配置文件," << std::endl;
-		std::cout << "请跟随提示进行初步的配置." << std::endl;
+		std::cout << "请跟随提示进行初步的配置;" << std::endl;
+		std::cout << "待配置完成后可以再次修改." << std::endl;
 		std::cout << std::string(2, '\n') << std::endl;
+
 		// 设置用户名
 		while (a != true){
 			std::cout << std::string(1, '\n') << std::endl;
@@ -38,14 +42,97 @@ int app::run(int argc, char* argv[]) {
 			std::cout <<"您的用户名为 " << username << "\n您确定使用此用户名吗?( 确定请输入 y )"<< std::endl;
 			std::cin >> b;
 			if (b == "y" ) {
-				a == true;
+				a = true;
 			}
 		};
-		std::cout << std::string(2, '\n') << std::endl;
-		// 未完待续，懒得继续写了（）
-	}
-	
+		this->config["username"] = username; // 保存用户名
+		a = false; // 重置状态
+		std::cout << std::string(1, '\n') << std::endl;
 
+		while (a != true){
+			std::cout << std::string(1, '\n') << std::endl;
+			std::cout << "Phase 2 / Step 1" << std::endl;
+			std::cout <<"接下来配置您的第一个模型" << std::endl;
+			std::cout << std::string(1, '\n') << std::endl;
+			std::cout <<"请输入您的模型名称:" << std::endl;
+			std::cin >> this->config["models"]["model_3"]["namel"];
+			std::cout <<"请输入您的API Base URL:" << std::endl;
+			std::cin >> this->config["models"]["model_3"]["base_url"];
+			std::cout <<"请输入您的API Key(API 密钥):" << std::endl;
+			std::cin >> this->config["models"]["model_3"]["api_key"];
+			std::cout <<"已保存,请勿泄露您的API密钥!" << std::endl; // 提示
+			std::cout << std::string(1, '\n') << std::endl;
+			std::cout << "Phase 2 / Step 2" << std::endl;
+			std::cout <<"正在检测此配置是否可用( 不会浪费您的Token )( 待开发 )" << std::endl;
+			// TODO: 检测
+			std::cout << std::string(1, '\n') << std::endl;
+			std::cout << "Phase 2 / Step 3" << std::endl;
+			std::cout <<"您的" << this->model["name"] << "配置为:\n" << "Base URL - " <<model["base_url"] << "\nAPI Key - " << this->model["api_key"] << "\n您确定使用此配置吗?( 确定请输入 y )"<< std::endl;
+			std::cin >> b;
+			if (b == "y" ) {
+				a = true;
+			}
+		};
+		// 结束阶段
+		std::cout << std::string(2, '\n') << std::endl;
+		std::cout << "Phase 3 / Step 1" << std::endl;
+		std::cout << "正在保存您的配置" << std::endl;
+		saveConfig(1);
+		std::cout << std::string(2, '\n') << std::endl;
+		std::cout << "Phase 3 / Step 2" << std::endl;
+		std::cout << "您的配置已保存" << std::endl;
+		std::cout << std::string(2, '\n') << std::endl;
+		std::cout << "Phase 3 / Step 3" << std::endl;
+		std::cout << "您已经完成了所有的初步的配置" << std::endl;
+		std::cout << "接下来可以正式使用 owo_Agent 了" << std::endl;
+		std::cout << std::string(1, '\n') << std::endl;
+		std::cout << "按下任意键继续...";
+		std::cin >> b;
+		std::cout << std::string(2, '\n') << std::endl;
+	}
+
+	// 完成初步配置
+	// 死循环菜单
+	std::string c = "";
+	while (true) {
+		std::cout << std::string(10, '=') << std::endl;
+		std::cout << "/ 菜单 " << std::endl;
+		std::cout << "1. 对话\n2.管理模型\n3. 对话设置\n4.Info\n5.退出程序" << std::endl;
+		std::cout << std::string(1, '\n') << std::endl;
+		std::cout << "您的选择 - ";
+		std::cin >> c;
+		std::cout << std::string(1, '\n') << std::endl;
+		if (c == "1") {
+			// TODO: 没做对话
+			std::cout << std::string(1, '\n') << std::endl;
+			std::cout << std::string(10, '=') << std::endl;
+			std::cout << "/ 菜单 / 对话" << std::endl;
+			std::cout << "还没做好..."<< std::endl;
+		} else if (c == "2") {
+			std::cout << std::string(1, '\n') << std::endl;
+			std::cout << std::string(10, '=') << std::endl;
+			std::cout << "/ 菜单 / 管理模型" << std::endl;
+			list_models() // 列出所有模型
+			std::cout << std::string(1, '\n') << std::endl;
+			std::cout << "您的选择 - ";
+			std::cin >> c;
+		} else if (c == "3") {
+			std::cout << std::string(1, '\n') << std::endl;
+			std::cout << std::string(10, '=') << std::endl;
+			std::cout << "/ 菜单 / Info" << std::endl;
+			std::cout << std::string(1, '\n') << std::endl;
+			std::cout << "还没做好..."<< std::endl;
+			std::cout << std::string(1, '\n') << std::endl;
+			std::cout << "您的选择 - ";
+			std::cin >> c;
+		} else if (c == "4") {
+			// 退出循环
+			break;
+		} esle {
+			std::cout << "您的选择有误!";
+		}
+		std::cout << std::string(2, '\n') << std::endl;
+	}
 	return 0;
 }
 
@@ -53,8 +140,10 @@ void app::list_models() {
 	// 遍历
     int i = 1;
     for (auto a = this->config["models"].begin(); a != config["models"].end(); ++a) {
+		
 		// 获取模型名称
         std::string model_name = a.value().value("name", "未知模型");
+		
 		// 直接输出
         std::cout << i << " " << model_name << std::endl;
         i++;
@@ -83,4 +172,11 @@ int app::set_model(const std::string& id) {
     // 可选：输出成功信息
     log(0, "[模型] 已切换到: " + this->config["models"][models_id].value("name", "unknown") + "也就是" +models_id );
     return 0;
+}
+
+void app::clearScreen() {
+    // \033[2J  : 清除整个屏幕 (Clear Screen)
+    // \033[1;1H: 将光标移动到第 1 行 第 1 列 (Home)
+    // \033[3J  : 清除滚动缓冲区 (可选，防止按向上箭头看到历史内容)
+    std::cout << "\033[2J\033[1;1H\033[3J" << std::flush;
 }
