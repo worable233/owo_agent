@@ -24,26 +24,29 @@ public:
 
     // 默认的 config
     json default_config = {
-    {"version", version},
-    {"debug", true},
-    {"models", {
-        "model_1", {
-        {"name", "Deepseek"},
-        {"base_url", "https://api.deepseek.com"},
-        {"api_key", "YOUR_API_KEY_HERE"}}},
-        "model_2", {
-        {"name", "Kimi"},
-        {"base_url", "https://api.moonshot.cn/v1/chat/completions"},
-        {"api_key", "YOUR_API_KEY_HERE"}}},
-    {"settings", {
-        {"timeout", 30},
-        {"max_tokens", 100},
-        {"retry", 3},
-        {"default_model", "deepseek-chat"},
-        {"stream", true}
-    }}
+        {"version", version},
+        {"username", ""},
+        {"debug", true},
+        {"models", {
+            {"model_1", {
+                {"name", "Deepseek"},
+                {"base_url", "https://api.deepseek.com"},
+                {"api_key", "YOUR_API_KEY_HERE"}
+            }},
+            {"model_2", {
+                {"name", "Kimi"},
+                {"base_url", "https://api.moonshot.cn/v1/chat/completions"},
+                {"api_key", "YOUR_API_KEY_HERE"}
+            }}
+        }},
+        {"settings", {
+            {"timeout", 30},
+            {"max_tokens", 100},
+            {"retry", 3},
+            {"default_model", "deepseek-chat"},
+            {"stream", true}
+        }}
     };
-
     // 读取的 config
     json config;
     // 默认的model
@@ -52,13 +55,15 @@ public:
     // 构造函数，防止初始化前日志的debug读不到报错
     app() : config(default_config) {}
 
-    // 静态函数
+    // 静态函数（已废弃）
     int run(int argc, char* argv[]);                      // 主程序
     // 函数
     bool loadConfig();                                        // 读取配置文件
     bool saveConfig(int status);                        // 保存配置文件
     int log(int title, const std::string& text);      // 日志
     int check();                                                    // 初始化
+    int set_model(const std::string& id);           // 设置模型
+    void list_models();                                         // 返回模型名称
     // openai 主函数
     int openai(const std::string& text);                                                  // openai接口相关
     // openai 子函数
