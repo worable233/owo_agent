@@ -1,3 +1,4 @@
+#include <functional>
 #include <iostream>
 #include <filesystem>
 #include <cstdlib>
@@ -13,6 +14,9 @@ using json = nlohmann::json;
 // 入口点
 int app::run(int argc, char* argv[]) {
 	std::string username = this->config["username"];
+
+	// 清空终端
+	clearScreen();
 
 	// 判断是不是第一次使用
 	if (username == "")
@@ -88,6 +92,8 @@ int app::run(int argc, char* argv[]) {
 		std::cout << std::string(1, '\n') << std::endl;
 		std::cout << "按下任意键继续...";
 		std::cin >> b;
+		// 清空终端
+		clearScreen();
 		std::cout << std::string(2, '\n') << std::endl;
 	}
 
@@ -99,7 +105,10 @@ int app::run(int argc, char* argv[]) {
 		std::cout << "/ 菜单 " << std::endl;
 		std::cout << "1. 对话\n2.管理模型\n3. 对话设置\n4.Info\n5.退出程序" << std::endl;
 		std::cout << std::string(1, '\n') << std::endl;
-		std::cout << "您的选择 - ";
+		std::cout << "请输入您的问题 - ";
+		std::cin >> c;
+		openai(c);
+		std::cout << "请按下任意键继续...";
 		std::cin >> c;
 		std::cout << std::string(1, '\n') << std::endl;
 		if (c == "1") {
@@ -107,12 +116,15 @@ int app::run(int argc, char* argv[]) {
 			std::cout << std::string(1, '\n') << std::endl;
 			std::cout << std::string(10, '=') << std::endl;
 			std::cout << "/ 菜单 / 对话" << std::endl;
+			std::cout << "您的选择 - ";
+			std::cin >> c;
+			openai("");
 			std::cout << "还没做好..."<< std::endl;
 		} else if (c == "2") {
 			std::cout << std::string(1, '\n') << std::endl;
 			std::cout << std::string(10, '=') << std::endl;
 			std::cout << "/ 菜单 / 管理模型" << std::endl;
-			list_models() // 列出所有模型
+			list_models(); // 列出所有模型
 			std::cout << std::string(1, '\n') << std::endl;
 			std::cout << "您的选择 - ";
 			std::cin >> c;
@@ -128,7 +140,8 @@ int app::run(int argc, char* argv[]) {
 		} else if (c == "4") {
 			// 退出循环
 			break;
-		} esle {
+		} else {
+			std::cout << std::string(1, '\n') << std::endl;
 			std::cout << "您的选择有误!";
 		}
 		std::cout << std::string(2, '\n') << std::endl;

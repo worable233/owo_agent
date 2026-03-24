@@ -66,6 +66,7 @@ public:
     int check();                                                    // 初始化
     int set_model(const std::string& id);           // 设置模型
     void list_models();                                         // 返回模型名称
+    void clearScreen();                                        // 清空屏幕
     // openai 主函数
     int openai(const std::string& text);                                                  // openai接口相关
     // openai 子函数

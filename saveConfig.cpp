@@ -5,6 +5,7 @@
 
 // 成员函数：保存配置文件
 bool app::saveConfig(int status) {
+    // 
     // 打开文件
     std::ofstream file(this->config_path);
     // 如果能正常打开
