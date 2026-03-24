@@ -172,8 +172,6 @@ int app::run(int argc, char* argv[]) {
 			}
 			this->config["debug"] = !this->config["debug"];
 			std::cout << std::string(1, '\n') << std::endl;
-			std::cout << "您的选择 - ";
-			std::cin >> c;
 		} else if (c == "5") {
 			// 退出循环
 			break;
@@ -183,6 +181,8 @@ int app::run(int argc, char* argv[]) {
 		}
 		std::cout << std::string(2, '\n') << std::endl;
 	}
+	// 清空终端
+	clearScreen();
 	return 0;
 }
 

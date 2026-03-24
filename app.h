@@ -41,7 +41,7 @@ public:
             }}
         }},
         {"settings", {
-            {"timeout", 30},
+            {"timeout", 10},
             {"max_tokens", 7000},
             {"retry", 3},
             {"use_model", "deepseek-chat"},
