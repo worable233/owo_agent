@@ -117,26 +117,33 @@ int app::run(int argc, char* argv[]) {
 	std::string c = "";
 	int success = 0;
 	while (true) {
+		clearScreen();
 		std::cout << std::string(10, '=') << std::endl;
 		std::cout << "/ 菜单 " << std::endl;
 		std::cout << "1.对话\n2.管理模型\n3.对话设置\n4.debug\n5.退出程序" << std::endl;
 		std::cout << std::string(1, '\n') << std::endl;
-		std::cout << "您的选择 - ";
+		std::cout << "您的选择( 输入对应数字 ) - ";
 		std::cin >> c;
 		std::cout << std::string(1, '\n') << std::endl;
 		if (c == "1") {
-			// TODO: 没做对话
+			// TODO: 没做对话历史
+			clearScreen();
 			std::cout << std::string(1, '\n') << std::endl;
 			std::cout << std::string(10, '=') << std::endl;
 			std::cout << "/ 菜单 / 对话" << std::endl;
-			std::cout << "请输入您的问题  - ";
+			std::cout << "您 - ";
 			std::cin >> c;
-			std::cout << "回复内容：" << std::endl;
+			std::cout << std::string(1, '\n') << std::endl;
+			std::cout << "AI：" << std::endl;
 			openai(c);
+			std::cout << std::string(1, '\n') << std::endl;
 			std::cout << "请按下任意键继续...";
 			std::cin >> c;
 			std::cout << std::string(1, '\n') << std::endl;
 		} else if (c == "2") {
+			
+			// 管理模型
+			clearScreen();
 			std::cout << std::string(1, '\n') << std::endl;
 			std::cout << std::string(10, '=') << std::endl;
 			std::cout << "/ 菜单 / 管理模型" << std::endl;
@@ -153,6 +160,9 @@ int app::run(int argc, char* argv[]) {
 				std::cout << "其他错误，请开启调试模式查看日志。" << std::endl;
 			}
 		} else if (c == "3") {
+
+			// 对话设置
+			clearScreen();
 			std::cout << std::string(1, '\n') << std::endl;
 			std::cout << std::string(10, '=') << std::endl;
 			std::cout << "/ 菜单 / 对话设置" << std::endl;
@@ -161,10 +171,18 @@ int app::run(int argc, char* argv[]) {
 			std::cout << "请按下任意键继续...";
 			std::cin >> c;
 		}else if (c == "4") {
+
+			// DEBUG
+			clearScreen();
 			std::cout << std::string(1, '\n') << std::endl;
 			std::cout << std::string(10, '=') << std::endl;
 			std::cout << "/ 菜单 / debug" << std::endl;
+			std::cout << "当前系统："<< os << "\n当前系统：" << config["debug"] << std::endl;
 			std::cout << std::string(1, '\n') << std::endl;
+			std::cout << "是否切换debug值状态( 确定请输入 y )";
+			std::cin >> c;
+			std::cout << std::string(1, '\n') << std::endl;
+			if (c == "y")
 			if (this->config["debug"] == true) {
 				std::cout << "已关闭调试模式！"<< std::endl;
 			} else {
@@ -178,6 +196,8 @@ int app::run(int argc, char* argv[]) {
 		} else {
 			std::cout << std::string(1, '\n') << std::endl;
 			std::cout << "您的选择有误!";
+			std::cout << "请按下任意键继续...";
+			std::cin >> c;
 		}
 		std::cout << std::string(2, '\n') << std::endl;
 	}
